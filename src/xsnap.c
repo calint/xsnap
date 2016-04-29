@@ -43,5 +43,6 @@ int main(int argc,char*argv[]){
 	XCloseDisplay(dpy);
 	if(x==XpmOpenFailed)return-3;
 	if(system("convert snap.xpm snap.png"))return-4;
+//	puts("xsnap done");
 	return 0;
 }
