@@ -33,14 +33,15 @@ int main(int argc,char*argv[]){
 	Display*dpy=XOpenDisplay(0);
 	if(dpy==NULL)return-1;
 	Window root=RootWindow(dpy,DefaultScreen(dpy));
-	XWindowAttributes rootAttributes;
-	XGetWindowAttributes(dpy,root,&rootAttributes);
-	XImage*img=XGetImage(dpy,root,0,0,(unsigned)rootAttributes.width,(unsigned)rootAttributes.height,XAllPlanes(),ZPixmap);
+	XWindowAttributes rootattr;
+	XGetWindowAttributes(dpy,root,&rootattr);
+	XImage*img=XGetImage(dpy,root,0,0,(unsigned)rootattr.width,(unsigned)rootattr.height,XAllPlanes(),ZPixmap);
+//	XImage*img=XGetImage(dpy,root,0,0,rootAttributes.width,rootAttributes.height,XAllPlanes(),ZPixmap);
 	if(img==NULL){XCloseDisplay(dpy);return-2;}
 	const int x=XpmWriteFileFromImage(dpy,"snap.xpm",img,0,NULL);
 	XDestroyImage(img);
-	if(x==XpmOpenFailed){XCloseDisplay(dpy);return-3;}
 	XCloseDisplay(dpy);
+	if(x==XpmOpenFailed)return-3;
 	if(system("convert snap.xpm snap.png"))return-4;
 	return 0;
 }
