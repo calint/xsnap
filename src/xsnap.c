@@ -25,9 +25,10 @@
  compilation: gcc -Wall -Werror root2xpm.c -o root2xpm -lX11 -lXpm
 
 
- modified by github.com/calint
+ modified at github.com/calint
  */
 #include</usr/include/X11/xpm.h>
+#include<stdlib.h>
 int main(int argc,char*argv[]){
 	Display*dpy=XOpenDisplay(0);
 	if(dpy==NULL)return-1;
@@ -40,5 +41,6 @@ int main(int argc,char*argv[]){
 	XDestroyImage(img);
 	if(x==XpmOpenFailed){XCloseDisplay(dpy);return-3;}
 	XCloseDisplay(dpy);
+	if(system("convert snap.xpm snap.png"))return-4;
 	return 0;
 }
