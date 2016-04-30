@@ -1,1 +1,2 @@
-# xsnap x11 screenshot
+# xsnap
+x11 screenshot
